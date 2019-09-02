@@ -1,7 +1,6 @@
 package lectures;
 
 import beans.Person;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import mockdata.MockData;
 import org.junit.Test;
@@ -9,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Lecture1 {
@@ -50,7 +50,11 @@ public class Lecture1 {
 
   @Test
   public void declarativeApproachUsingStreams() throws Exception {
-    ImmutableList<Person> people = MockData.getPeople();
+    MockData.getPeople().stream()
+            .filter(person -> person.getAge() <= 18)
+            .limit(10)
+            .collect(Collectors.toList())
+            .forEach(System.out::println);
 
   }
 }
